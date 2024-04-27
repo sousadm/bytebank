@@ -1,5 +1,6 @@
 import 'package:bytebank/models/contato.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:confirm_dialog/confirm_dialog.dart';
 
 import '../../database/dao/contato_dao.dart';
@@ -18,6 +19,8 @@ class _ContactFormState extends State<ContactForm> {
   late TextEditingController _foneController = TextEditingController();
   late TextEditingController _idadeController = TextEditingController();
   late TextEditingController _nascimentoController = TextEditingController();
+  DateTime?
+      _selectedDate; // Adicione uma variável para armazenar a data selecionada
 
   final ContatoDao _dao = ContatoDao();
 
@@ -80,17 +83,53 @@ class _ContactFormState extends State<ContactForm> {
               style: const TextStyle(fontSize: 24.0),
               keyboardType: TextInputType.number,
             ),
-            TextField(
-              controller: _nascimentoController,
-              decoration:
-                  const InputDecoration(labelText: 'Data de Nascimento'),
-              style: const TextStyle(fontSize: 24.0),
-              keyboardType: TextInputType.datetime,
+
+            InkWell(
+              onTap: () {
+                _selectDate(context);
+              },
+              child: IgnorePointer(
+                child: TextField(
+                  controller: _nascimentoController,
+                  decoration: const InputDecoration(
+                    labelText: 'Data de Nascimento',
+                    suffixIcon: Icon(Icons.calendar_today),
+                  ),
+                  style: const TextStyle(fontSize: 24.0),
+                  keyboardType: TextInputType.datetime,
+                ),
+              ),
             ),
+
+            // TextField(
+            //   controller: _nascimentoController,
+            //   decoration:
+            //       const InputDecoration(labelText: 'Data de Nascimento'),
+            //   style: const TextStyle(fontSize: 24.0),
+            //   keyboardType: TextInputType.datetime,
+            // ),
           ],
         ),
       ),
     );
+  }
+
+  // Método para exibir o seletor de data
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (pickedDate != null && pickedDate != _selectedDate) {
+      setState(() {
+        _selectedDate = pickedDate;
+        _nascimentoController.text =
+            DateFormat('dd/MM/yyyy').format(pickedDate);
+      });
+    }
   }
 
   void salvar(BuildContext context) {
