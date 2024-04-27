@@ -1,9 +1,8 @@
+import 'package:bytebank/database/dao/contato_dao.dart';
 import 'package:bytebank/models/contato.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:confirm_dialog/confirm_dialog.dart';
-
-import '../../database/dao/contato_dao.dart';
 
 class ContactForm extends StatefulWidget {
   final Contato contato;
@@ -19,8 +18,6 @@ class _ContactFormState extends State<ContactForm> {
   late TextEditingController _foneController = TextEditingController();
   late TextEditingController _idadeController = TextEditingController();
   late TextEditingController _nascimentoController = TextEditingController();
-  DateTime?
-      _selectedDate; // Adicione uma variável para armazenar a data selecionada
 
   final ContatoDao _dao = ContatoDao();
 
@@ -130,18 +127,18 @@ class _ContactFormState extends State<ContactForm> {
   Future<void> _selectDate(
       BuildContext context, TextEditingController selectedController) async {
     DateFormat format = DateFormat("dd/MM/yyyy");
-    DateTime dateTime = format.parse(selectedController.text);
+    DateTime selectedDate = format.parse(selectedController.text);
 
     final DateTime? pickedDate = await showDatePicker(
       context: context,
-      initialDate: dateTime,
+      initialDate: selectedDate,
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
 
-    if (pickedDate != null && pickedDate != _selectedDate) {
+    if (pickedDate != null && pickedDate != selectedDate) {
       setState(() {
-        _selectedDate = pickedDate;
+        selectedDate = pickedDate;
         _nascimentoController.text =
             DateFormat('dd/MM/yyyy').format(pickedDate);
       });
