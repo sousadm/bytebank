@@ -1,15 +1,21 @@
 import '../../models/contato.dart';
 import 'package:sqflite/sqflite.dart';
-
 import '../app_database.dart';
 
 class ContatoDao {
   static const String _tableName = 'contato';
+  static const String _fieldId = 'id';
+  static const String _fieldNome = 'nome';
+  static const String _fieldFone = 'fone';
+  static const String _fieldNascimento = 'nascimento';
+  static const String _fieldIdade = 'idade';
+
   static const String tableSql = 'CREATE TABLE $_tableName ('
-      'id INTEGER PRIMARY KEY, '
-      'nome TEXT, '
-      'fone TEXT, '
-      'idade INTEGER)';
+      '$_fieldId INTEGER PRIMARY KEY, '
+      '$_fieldNome TEXT, '
+      '$_fieldFone TEXT, '
+      '$_fieldNascimento TEXT, '
+      '$_fieldIdade INTEGER)';
 
   Future<int> save(Contato contato) async {
     final Database db = await getDatabase();

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 class Contato {
@@ -5,22 +6,19 @@ class Contato {
   final String nome;
   final String fone;
   final int idade;
+  final String nascimento;
 
   Contato({
     this.id,
     required this.nome,
     required this.fone,
     required this.idade,
+    required this.nascimento,
   });
 
   // Método estático para retornar um contato vazio
   static Contato empty() {
-    return Contato(nome: '', fone: '', idade: 0);
-  }
-
-  @override
-  String toString() {
-    return 'Contato(id: $id, nome: $nome, fone: $fone, idade: $idade)';
+    return Contato(nome: '', fone: '', idade: 0, nascimento: '');
   }
 
   Map<String, dynamic> toMap() {
@@ -29,6 +27,7 @@ class Contato {
       'nome': nome,
       'fone': fone,
       'idade': idade,
+      'nascimento': nascimento,
     };
   }
 
@@ -38,6 +37,7 @@ class Contato {
       nome: map['nome'] as String,
       fone: map['fone'] as String,
       idade: map['idade'] as int,
+      nascimento: map['nascimento'] as String,
     );
   }
 
