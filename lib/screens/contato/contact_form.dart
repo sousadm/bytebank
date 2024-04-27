@@ -1,5 +1,4 @@
 import 'package:bytebank/models/contato.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:confirm_dialog/confirm_dialog.dart';
 
@@ -19,6 +18,7 @@ class _ContactFormState extends State<ContactForm> {
   late TextEditingController _foneController = TextEditingController();
   late TextEditingController _idadeController = TextEditingController();
   late TextEditingController _nascimentoController = TextEditingController();
+
   final ContatoDao _dao = ContatoDao();
 
   @override
@@ -28,6 +28,8 @@ class _ContactFormState extends State<ContactForm> {
     _foneController = TextEditingController(text: widget.contato.fone);
     _idadeController =
         TextEditingController(text: widget.contato.idade.toString());
+    _nascimentoController =
+        TextEditingController(text: widget.contato.nascimento);
   }
 
   @override
