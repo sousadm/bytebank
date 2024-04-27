@@ -62,21 +62,28 @@ class _ContactFormState extends State<ContactForm> {
           children: [
             TextField(
               controller: _nameController,
-              decoration: InputDecoration(labelText: 'nome completo'),
-              style: TextStyle(fontSize: 24.0),
+              decoration: const InputDecoration(labelText: 'nome completo'),
+              style: const TextStyle(fontSize: 24.0),
               //autofocus: true,
             ),
             TextField(
               controller: _foneController,
-              decoration: InputDecoration(labelText: 'Celular'),
-              style: TextStyle(fontSize: 24.0),
+              decoration: const InputDecoration(labelText: 'Celular'),
+              style: const TextStyle(fontSize: 24.0),
               keyboardType: TextInputType.phone,
             ),
             TextField(
               controller: _idadeController,
-              decoration: InputDecoration(labelText: 'Idade'),
-              style: TextStyle(fontSize: 24.0),
+              decoration: const InputDecoration(labelText: 'Idade'),
+              style: const TextStyle(fontSize: 24.0),
               keyboardType: TextInputType.number,
+            ),
+            TextField(
+              controller: _nascimentoController,
+              decoration:
+                  const InputDecoration(labelText: 'Data de Nascimento'),
+              style: const TextStyle(fontSize: 24.0),
+              keyboardType: TextInputType.datetime,
             ),
           ],
         ),
