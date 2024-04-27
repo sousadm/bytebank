@@ -4,27 +4,18 @@ import 'package:sqflite/sqflite.dart';
 import '../app_database.dart';
 
 class ContatoDao {
-
   static const String _tableName = 'contato';
-  static const String tableSql =  'CREATE TABLE $_tableName ('
-                                  'id INTEGER PRIMARY KEY, '
-                                  'nome TEXT, '
-                                  'fone TEXT, '
-                                  'idade INTEGER)';
+  static const String tableSql = 'CREATE TABLE $_tableName ('
+      'id INTEGER PRIMARY KEY, '
+      'nome TEXT, '
+      'fone TEXT, '
+      'idade INTEGER)';
 
   Future<int> save(Contato contato) async {
     final Database db = await getDatabase();
     Map<String, dynamic> map = await contato.toMap();
     return db.insert(_tableName, map);
   }
-
-  // Map<String, dynamic> _toMap(Contato contato) {
-  //   final Map<String, dynamic> map = Map();
-  //   map['nome'] = contato.nome;
-  //   map['idade'] = contato.idade;
-  //   map['fone'] = contato.fone;
-  //   return map;
-  // }
 
   Future<List<Contato>> findAll() async {
     final Database db = await getDatabase();
@@ -35,7 +26,7 @@ class ContatoDao {
   Future<List<Contato>> _toList(Database db) async {
     final List<Contato> contatos = <Contato>[];
     for (Map<String, dynamic> map in await db.query(_tableName)) {
-      final Contato contato = Contato(id: map['id'], nome: map['nome'], fone: map['fone'], idade: map['idade']);
+      final contato = Contato.fromMap(map);
       contatos.add(contato);
     }
     return contatos;
@@ -68,5 +59,4 @@ class ContatoDao {
       whereArgs: [contato.id],
     );
   }
-
 }
